@@ -29,7 +29,7 @@ const TEXT_TO_BE_ENCODED = 'HELLO';
 const convertToAscii = s => [...s]
   .map(char => char.charCodeAt(0));
 
-  const TEXT_IN_ASCII = convertToAscii(TEXT_TO_BE_ENCODED)
+const TEXT_IN_ASCII = convertToAscii(TEXT_TO_BE_ENCODED)
   .reduce((previous, current) => previous.concat([split(current.toString())]), []);
 
 const ENCRYPTED_TEXT = TEXT_IN_ASCII.map(encrypt);
