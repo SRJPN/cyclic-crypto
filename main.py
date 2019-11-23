@@ -1,3 +1,8 @@
+basePairs = [[8, 0], [2, 4], [4, 2], [7, 2], [9, 4], [5, 4]]
+
+baseInversePairs = [[8, 0], [2, 7], [4, 9], [7, 9], [9, 7], [5, 7]]
+
+
 def modInverse(a, m):
     a = a % m
     for index in range(0, m):
@@ -30,19 +35,21 @@ def xFunction(x1, y1, x2, y2):
     ]
 
 
-def encrypt(x1, y1):
-    return xFunction(x1, y1, 9, 4)
+def encrypt(x1, y1, index):
+    base = basePairs[index % (basePairs.__len__() - 1)]
+    return xFunction(x1, y1, base[0], base[1])
 
 
-def decrypt(x1, y1):
-    return xFunction(x1, y1, 9, 7)
+def decrypt(x1, y1, index):
+    base = baseInversePairs[(index % (baseInversePairs.__len__() - 1))]
+    return xFunction(x1, y1, base[0], base[1])
 
 
 def convertToAscii(text):
     return ([list(str(ord(letter))) for letter in text])
 
 
-text = "HELLO"
+text = "CHITHRA"
 
 print("Text to be encrypted: " + text)
 
@@ -51,15 +58,15 @@ text_in_acsii = [[int(character_code[0]), int(character_code[1])]
 
 print("Text in ascii: %s" % text_in_acsii)
 
-encrypted_acsii = [encrypt(character_code[0], character_code[1])
-                   for character_code in text_in_acsii]
+encrypted_acsii = [encrypt(character_code[0], character_code[1], index)
+                   for index, character_code in enumerate(text_in_acsii)]
 
 print("Text in encrypted ascii: %s" % encrypted_acsii)
 
-decrypted_ascii = [decrypt(character_code[0], character_code[1])
-                   for character_code in encrypted_acsii]
+decrypted_ascii = [decrypt(character_code[0], character_code[1], index)
+                   for index, character_code in enumerate(encrypted_acsii)]
 
-print("Text in decrypted ascii:  %s" % (decrypted_ascii))
+print("Text in decrypted ascii: %s" % (decrypted_ascii))
 
 retrieved_text = [chr(int(str(character_code[0]) + str(character_code[1])))
                   for character_code in decrypted_ascii]
