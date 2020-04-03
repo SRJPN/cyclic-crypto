@@ -49,7 +49,7 @@ def convertToAscii(text):
     return ([list(str(ord(letter))) for letter in text])
 
 
-text = "CHITHRA"
+text = input("enter your message: ")
 
 print("Text to be encrypted: " + text)
 
